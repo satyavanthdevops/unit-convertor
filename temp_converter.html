@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+       
+        body {
+          background-image: url('https://media.istockphoto.com/id/1331641408/photo/thermometer-measurement-hight-temperature-extreme-climate-contain-3d-rendering.jpg?s=612x612&w=0&k=20&c=jgBEQmKtagBfzxy208AFmziceWPNWNH3NeNjHkqSzqY=');
+         
+          background-size: cover; 
+          background-repeat: no-repeat; 
+        
+        }
+        form{
+        margin-left:50px;
+        margin-right:50px;
+        padding:20px;
+      }
+      </style>
+      
+</head>
+<body>
+    <center>
+    
+    <h1 >Temperature Converter</h1>
+    <h4>Make conversions easy... 😎</h4>
+    <form name="temperatureConverterForm">
+        <input name="temperatureInput" id="temperatureInput" placeholder="Enter the temperature">
+        <select id="fromUnit">
+            <option value="celsius">Celsius</option>
+            <option value="fahrenheit">Fahrenheit</option>
+            <option value="kelvin">Kelvin</option>
+        </select>
+        -
+        <select id="toUnit">
+            <option value="celsius">Celsius</option>
+            <option value="fahrenheit">Fahrenheit</option>
+            <option value="kelvin">Kelvin</option>
+        </select>
+        <button type="button" onclick="convertTemperature()">Convert</button>
+        <div id="resultDiv"></div>
+    </form>
+
+</center>
+
+    <script>
+        function convertTemperature(){
+            const inputValue = parseFloat(document.getElementById('temperatureInput').value);
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+
+            if (isNaN(inputValue)) {
+                document.getElementById('resultDiv').innerHTML = '<p>Please enter a valid number.</p>';
+                return;
+            }
+
+            let celcius;
+
+            switch (fromUnit) {
+                case 'celsius':
+                    celcius = inputValue;
+                case 'fahrenheit':
+                    celcius = (inputValue - 32) * 5/9;
+                    break;
+                case 'kelvin':
+                    celcius = inputValue - 273.15;
+                    break;
+                default:
+                    celcius = inputValue;
+                    break;
+            }
+            let result;
+            switch (fromUnit) {
+                case 'celsius':
+                    result = celcius;
+                    break;
+                case 'fahrenheit':
+                    result = celcius*9/5 + 32;
+                    break;
+                case 'kelvin':
+                    result = celcius + 273.15;
+                    break;
+                default:
+                    result = celcius;
+                    break;
+            }
+            document.getElementById('resultDiv').innerHTML = '<h3>Result:</h3>' +
+                '<p>' + inputValue + ' ' + fromUnit + ' = ' + result.toFixed(2) + ' ' + toUnit + '</p>';
+        }
+    </script>
+    
+</body>
+</html>

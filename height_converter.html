@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Height Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+
+        body {
+          background-image: url('https://img.freepik.com/free-photo/measuring-tape-still-life_23-2150404659.jpg?size=626&ext=jpg&ga=GA1.1.2116175301.1701043200&semt=ais');
+         
+          background-size: cover; 
+          background-repeat: no-repeat; 
+        
+        }
+        form{
+        margin-left:50px;
+        margin-right:50px;
+        padding:20px;
+      }
+      </style>
+</head>
+<body>
+
+    <center>
+    
+    <h1>Height Converter</h1>
+    <h4>Make conversions easy... 😎</h4>
+    <form name="heightConverterForm">
+        <input name="heightInput" id="heightInput" placeholder="Enter the height">
+        <select id="fromUnit">
+            <option value="centimeters">Centimeters</option>
+            <option value="meters">Meters</option>
+            <option value="feet">Feet</option>
+            <option value="inches">Inches</option>
+        </select>
+        -
+        <select id="toUnit">
+            <option value="centimeters">Centimeters</option>
+            <option value="meters">Meters</option>
+            <option value="feet">Feet</option>
+            <option value="inches">Inches</option>
+        </select>
+        <button type="button" onclick="convertHeight()">Convert</button>
+        <div id="resultDiv"></div>
+    </form>
+</center>
+    <script>
+        function convertHeight(){
+            const inputValue = parseFloat(document.getElementById('heightInput').value);
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+
+            if (isNaN(inputValue)) {
+                document.getElementById('resultDiv').innerHTML = '<p>Please enter a valid number.</p>';
+                return;
+            }
+
+            let centimeters;
+            let result;
+
+            switch (fromUnit) {
+                        case 'centimeters':
+                            centimeters=inputValue;
+                            break;
+                        case 'meters':
+                            centimeters = inputValue * 100;
+                            break;
+                        case 'feet':
+                            centimeters = inputValue *30.48;
+                            break;
+                        case 'inches':
+                            centimeters = inputValue * 2.54;
+                            break;
+                        default:
+                            centimeters = inputValue;
+                            break;
+                    }
+                    
+                    switch (toUnit) {
+                        case 'centimeters':
+                            result = centimeters;
+                            break;
+                        case 'meters':
+                            result = centimeters /100;
+                            break;
+                        case 'feet':
+                            result = centimeters/ 30.48;
+                            break;
+                        case 'inches':
+                            result = centimeters / 2.54;
+                            break;
+                        default:
+                            result = centimeters;
+                            break;
+                    }
+
+            document.getElementById('resultDiv').innerHTML = '<h3>Result:</h3>' +
+                '<p>' + inputValue + ' ' + fromUnit + ' = ' + result.toFixed(2) + ' ' + toUnit + '</p>';
+        }
+    </script>
+    
+</body>
+</html>

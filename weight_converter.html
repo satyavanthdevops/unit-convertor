@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weight Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        
+        body {
+          background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoDtIh3QoyvuRuF99_p8iLjTKopGgt65AEkQ&usqp=CAU');
+          
+          background-size: cover;
+          background-repeat: no-repeat; 
+          
+        }
+        form{
+        margin-left:50px;
+        margin-right:50px;
+        padding:20px;
+      }
+      </style>
+</head>
+<body>
+
+    <center>
+    
+    <h1>Weight Converter</h1>
+    <h4>Make conversions easy... 😎</h4>
+    <form name="converterForm">
+        <input name="weightInput" id="weightInput" placeholder="Enter the weight">
+        <select id="fromUnit">
+            <option value="grams">Grams</option>
+            <option value="kilograms">Kilograms</option>
+            <option value="pounds">Pounds</option>
+            <option value="ounces">Ounces</option>
+        </select>
+         -
+        <select id="toUnit">
+            <option value="grams">Grams</option>
+            <option value="kilograms">Kilograms</option>
+            <option value="pounds">Pounds</option>
+            <option value="ounces">Ounces</option>
+        </select>
+        <button type="button" onclick="convertWeight()">Convert</button>
+        <div id="resultDiv"></div>
+    </form>
+
+</center>
+
+    <script>
+        function convertWeight(){
+            const inputValue = parseFloat(document.getElementById('weightInput').value);
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+
+            if (isNaN(inputValue)) {
+                document.getElementById('resultDiv').innerHTML = '<p>Please enter a valid number.</p>';
+                return;
+            }
+
+            let grams;
+
+            switch (fromUnit) {
+                case 'grams':
+                    grams = inputValue;
+                    break;
+                case 'kilograms':
+                    grams = inputValue * 1000;
+                    break;
+                case 'pounds':
+                    grams = inputValue * 453.592;
+                    break;
+                case 'ounces':
+                    grams = inputValue * 28.3495;
+                    break;
+                default:
+                    break;
+            }
+
+            let result;
+
+            switch (toUnit) {
+                case 'grams':
+                    result = grams;
+                    break;
+                case 'kilograms':
+                    result = grams / 1000;
+                    break;
+                case 'pounds':
+                    result = grams / 453.592;
+                    break;
+                case 'ounces':
+                    result = grams / 28.3495;
+                    break;
+                default:
+                    break;
+            }
+
+            document.getElementById('resultDiv').innerHTML = '<h3>Result:</h3>' +
+                '<p>' + inputValue + ' ' + fromUnit + ' = ' + result.toFixed(3) + ' ' + toUnit + '</p>';
+        }
+    </script>
+    
+</body>
+</html>

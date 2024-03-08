@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+          background-image: url('https://img.freepik.com/free-photo/top-view-weights-meter-with-copy-space_23-2148343783.jpg');
+          background-size: cover; 
+          background-repeat: no-repeat;
+    
+        }
+       
+      </style>
+
+</head>
+<body style="padding-left: 12%; padding-top: 2%;">
+    
+    
+    <h1 style="text-align: left;">BMI Calculator</h1>
+    <h4 style="text-align: left;">Calculate your Body Mass Index... 😎</h4>
+    <form name="bmiCalculatorForm">
+        <label for="height">Height (in centimeters):</label>
+        <input type="number" id="height" name="height" placeholder="Enter height in centimeters" required><br>
+        <label for="weight">Weight (in kilograms):</label>
+        <input type="number" id="weight" name="weight" step="0.01" placeholder="Enter weight in kilograms" required><br>
+        <button type="button" onclick="calculateBMI()">Calculate BMI</button>
+    </form>
+    <div id="bmiResult"></div>
+
+
+    <script>
+        function calculateBMI() {
+            const height = parseFloat(document.getElementById('height').value) / 100;
+            const weight = parseFloat(document.getElementById('weight').value);
+
+            if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+                document.getElementById('bmiResult').innerHTML = '<p>Please enter valid height and weight.</p>';
+                return;
+            }
+
+            const bmi = weight / (height * height);
+            let bmiCategory;
+
+            if (bmi < 18.5) {
+                bmiCategory = 'Underweight';
+            } else if (bmi >= 18.5 && bmi < 25) {
+                bmiCategory = 'Normal weight';
+            } else if (bmi >= 25 && bmi < 30) {
+                bmiCategory = 'Overweight';
+            } else {
+                bmiCategory = 'Obese';
+            }
+
+            let resultMessage = `<h3 style="color:red">Your BMI: ${bmi.toFixed(2)}</h3>`;
+            resultMessage += `<p>Category: ${bmiCategory}</p>`;
+
+            if (bmiCategory === 'Overweight') {
+                resultMessage += `<h3>Diet and Exercise Suggestions:</h3>`;
+                resultMessage += `<p style="font-family:cursive">For overweight individuals, it is recommended to focus on a balanced diet and regular exercise.</p>`;
+                resultMessage += `<p style="font-family:cursive" >Include more fruits, vegetables, lean proteins, and whole grains in your diet.</p>`;
+                resultMessage += `<p style="font-family:cursive" >Avoid sugary drinks and high-calorie snacks.</p>`;
+                resultMessage += `<p style="font-family:cursive" >Engage in at least 30 minutes of moderate-intensity exercise most days of the week.</p>`;
+            } else if (bmiCategory === 'Underweight') {
+                resultMessage += `<h4 style="text-align:left">Diet Suggestions:</h4>`;
+                resultMessage += `<p style="font-family:cursive">For underweight individuals, it is important to consume nutrient-dense foods to promote weight gain.</p>`;
+                resultMessage += `<p style="font-family:cursive">Incorporate healthy fats, protein-rich foods, whole grains, and dairy products into your meals.</p>`;
+                resultMessage += `<p style="font-family:cursive">Eat smaller, more frequent meals throughout the day to increase calorie intake.</p>`;
+                resultMessage += `<p style="font-family:cursive">Consider consulting with a healthcare professional or a dietitian for personalized dietary advice.</p>`;
+            }
+
+            document.getElementById('bmiResult').innerHTML = resultMessage;
+        }
+    </script>
+</body>
+</html>
